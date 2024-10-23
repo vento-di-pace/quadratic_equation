@@ -14,10 +14,15 @@ def solve(a: float, b: float, c: float, e: float) -> list:
         raise ANullException('Значение a не должно быть равным 0.')
 
     dtr: float = b*b - 4*a*c
+    # реализация п.4. Детерминант отрицательный - действительных корней нет
     if dtr < -e:
-        # реализация п.3 ДЗ
+        #
         return []
-
+    # реализация п.6. Детерминант положительный - два действительных корня
+    if dtr > e:
+        x1 = (- b - math.sqrt(dtr)) / 2*c
+        x2 = (- b + math.sqrt(dtr)) / 2*c
+        return [x1, x2]
 
 
 

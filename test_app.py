@@ -59,9 +59,9 @@ def test_two_squares(double_zero):
     :return:
     """
     # arrange
-    a: float = 5.432
+    a: float = 4.321
     b: float = 11.22
-    c: float = 6.789
+    c: float = 5.6789112123213
 
     # act
     result = solve(a, b, c, double_zero)
