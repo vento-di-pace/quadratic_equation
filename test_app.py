@@ -2,15 +2,17 @@
 
 import pytest
 from app import solve, ANullException
+from sys import float_info
 
 
 @pytest.fixture
 def double_zero() -> float:
     """
-    фикстура эпсилон, минимального значения, значения меньше которого интерпретируются как 0
+    Фикстура эпсилон, минимального значения, значения меньше которого интерпретируются как 0
     :return:
     """
-    yield 1e-7
+    #yield 1e-7
+    yield float_info.epsilon
 
 
 def test_a_null(double_zero):
@@ -22,7 +24,7 @@ def test_a_null(double_zero):
     :return:
     """
     # arrange
-    a: float = 0.5e-7
+    a: float = 0.5e-16
     b: float = 12
     c: float = 33
 
@@ -87,6 +89,30 @@ def test_one_square(double_zero):
 
     # act
     result = solve(a, b, c, double_zero)
+
+    # Проверим, что результат массив ввиду динамической типизации Python
+    assert isinstance(result, (list, tuple))
+
+    # Проверка существования одного корня, записанного в массив из двух элементов
+    # для сохранения типа вывода функции
+    assert len(result) == 2 and result[0] == result[1]
+
+
+def test_one_square_border_case(double_zero):
+    """
+    Реализация 11-го пункта ДЗ:
+    Написать тест, который проверяет, что для уравнения x^2+2x+1 = 0 есть один корень кратности 2 (x1= x2 = -1).
+    :return:
+    """
+    # arrange
+    a: float = 56.7070000000000028
+    b: float = 3.24212000000000001
+    c: float = 0.046340584471052981
+    # слегка увеличенное значение эпсилон
+    e: float = 1e-14
+
+    # act
+    result = solve(a, b, c, e)
 
     # Проверим, что результат массив ввиду динамической типизации Python
     assert isinstance(result, (list, tuple))
