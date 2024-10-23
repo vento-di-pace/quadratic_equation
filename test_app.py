@@ -69,5 +69,28 @@ def test_two_squares(double_zero):
     # assert
     # Проверим, что результат массив ввиду динамической типизации Python
     assert isinstance(result, (list, tuple))
-    # Проверка существования двух корней
-    assert len(result) == 2
+    # Проверка существования разных двух корней
+    assert len(result) == 2 and result[0] != result[1]
+
+
+def test_one_square(double_zero):
+    """
+    Реализация 7-го пункта ДЗ:
+    Написать тест, который проверяет, что для уравнения x^2+2x+1 = 0 есть один корень кратности 2 (x1= x2 = -1).
+    :param double_zero: фикстура эпсилон
+    :return:
+    """
+    # arrange
+    a: float = 5670.7
+    b: float = 33242.12
+    c: float = 48717.0253273141005
+
+    # act
+    result = solve(a, b, c, double_zero)
+
+    # Проверим, что результат массив ввиду динамической типизации Python
+    assert isinstance(result, (list, tuple))
+
+    # Проверка существования одного корня, записанного в массив из двух элементов
+    # для сохранения типа вывода функции
+    assert len(result) == 2 and result[0] == result[1]

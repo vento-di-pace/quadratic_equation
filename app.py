@@ -10,6 +10,7 @@ class ANullException(ValueError):
 
 
 def solve(a: float, b: float, c: float, e: float) -> list:
+    x1 = x2 = 0.0 # инициализация корней
     if math.fabs(a) < e:
         raise ANullException('Значение a не должно быть равным 0.')
 
@@ -22,7 +23,11 @@ def solve(a: float, b: float, c: float, e: float) -> list:
     if dtr > e:
         x1 = (- b - math.sqrt(dtr)) / 2*c
         x2 = (- b + math.sqrt(dtr)) / 2*c
-        return [x1, x2]
+    # реализация п.8
+    if math.fabs(dtr) < e:
+        x1 = x2 = - (b / 2) / a
+
+    return [x1, x2]
 
 
 
