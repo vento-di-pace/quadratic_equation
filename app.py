@@ -15,6 +15,7 @@ def solve(a: float, b: float, c: float, e: float) -> list:
 
     dtr: float = b*b - 4*a*c
     if dtr < -e:
+        # реализация п.3 ДЗ
         return []
 
 
