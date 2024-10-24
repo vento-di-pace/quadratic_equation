@@ -9,9 +9,24 @@ class ANullException(ValueError):
         self.msg = msg
 
 
+class OutOfRangeException(ValueError):
+    def __init__(self, msg):
+        self.msg = msg
+
+
 def solve(a: float, b: float, c: float, e: float) -> list:
     # инициализация корней
     x1 = x2 = 0.0
+
+    # реализация пункта 12
+    for i, v in enumerate((a, b, c, e)):
+        if math.isinf(v):
+            raise OutOfRangeException(f'Аргумент функции под номером {i+1} - бесконечность. '
+                                      'Вычисление не возможно')
+        if math.isnan(v):
+            raise OutOfRangeException(f'Аргумент функции под номером {i+1} - не число. '
+                                      'Вычисление не возможно')
+
 
     # Реализация п. 10
     if math.fabs(a) < e:

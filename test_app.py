@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
+import math
 
 import pytest
-from app import solve, ANullException
+from app import solve, ANullException, OutOfRangeException
 from sys import float_info
 
 
@@ -120,3 +121,41 @@ def test_one_square_border_case(double_zero):
     # Проверка существования одного корня, записанного в массив из двух элементов
     # для сохранения типа вывода функции
     assert len(result) == 2 and result[0] == result[1]
+
+
+def test_inf_input(double_zero):
+    """
+    Реализация 12--го пункта ДЗ:
+    Посмотреть какие еще значения могут принимать числа типа double, кроме числовых
+    и написать тест с их использованием на все коэффициенты. solve должен выбрасывать исключение.
+    :param double_zero: Значение эпсилон
+    :return:
+    """
+    # arrange
+    a: float = 0.5e-16
+    b: float = math.inf
+    c: float = 33
+
+    # act and assert
+    with pytest.raises(OutOfRangeException) as e_info:
+        result = solve(a, b, c, double_zero)
+    assert 'бесконечность.' in e_info.value.msg
+
+
+def test_nan_input():
+    """
+    Реализация 12--го пункта ДЗ:
+    Посмотреть какие еще значения могут принимать числа типа double, кроме числовых
+    и написать тест с их использованием на все коэффициенты. solve должен выбрасывать исключение.
+    :return:
+    """
+    # arrange
+    a: float = 0.5e-16
+    b: float = 93
+    c: float = 33
+    e: float = math.nan
+
+    # act and assert
+    with pytest.raises(OutOfRangeException) as e_info:
+        result = solve(a, b, c, e)
+    assert 'не число.' in e_info.value.msg
